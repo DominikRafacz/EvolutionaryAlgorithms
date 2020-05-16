@@ -5,6 +5,6 @@ import dr.mio.evo.alg.genotype.Genotype;
 
 import java.util.List;
 
-public interface TargetDesc {
-    List<Double> evaFitness(State population);
+public interface TargetDesc<T extends Genotype> {
+    List<Double> evaFitness(State<T> population);
 }

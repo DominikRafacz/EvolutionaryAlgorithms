@@ -8,8 +8,8 @@ import java.util.List;
 
 @Data
 @NoArgsConstructor
-public class State {
-    private List<? extends Genotype> population;
+public class State<T extends Genotype> {
+    private List<T> population;
     private List<Double> fitnessValue;
     private Results best;
 }

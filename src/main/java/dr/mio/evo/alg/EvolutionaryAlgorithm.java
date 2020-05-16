@@ -1,27 +1,28 @@
 package dr.mio.evo.alg;
 
 import dr.mio.evo.alg.desc.*;
+import dr.mio.evo.alg.genotype.Genotype;
 
-public class EvolutionaryAlgorithm {
-    private final PopulationDesc populationDesc;
-    private final TargetDesc targetDesc;
-    private final CrossingDesc crossingDesc;
-    private final MutationDesc mutationDesc;
-    private final CriterionDesc criterionDesc;
+public class EvolutionaryAlgorithm<T extends Genotype> {
+    private final PopulationDesc<T> populationDesc;
+    private final TargetDesc<T> targetDesc;
+    private final CrossingDesc<T> crossingDesc;
+    private final MutationDesc<T> mutationDesc;
+    private final CriterionDesc<T> criterionDesc;
 
-    private State state;
+    private final State<T> state;
 
-    public EvolutionaryAlgorithm(PopulationDesc populationDesc,
-                                 TargetDesc targetDesc,
-                                 CrossingDesc crossingDesc,
-                                 MutationDesc mutationDesc,
-                                 CriterionDesc criterionDesc) {
+    public EvolutionaryAlgorithm(PopulationDesc<T> populationDesc,
+                                 TargetDesc<T> targetDesc,
+                                 CrossingDesc<T> crossingDesc,
+                                 MutationDesc<T> mutationDesc,
+                                 CriterionDesc<T> criterionDesc) {
         this.populationDesc = populationDesc;
         this.targetDesc = targetDesc;
         this.mutationDesc = mutationDesc;
         this.crossingDesc = crossingDesc;
         this.criterionDesc = criterionDesc;
-        state = new State();
+        state = new State<>();
     }
 
     public void run() {

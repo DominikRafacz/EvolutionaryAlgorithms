@@ -5,6 +5,6 @@ import dr.mio.evo.alg.genotype.Genotype;
 
 import java.util.List;
 
-public interface MutationDesc {
-    List<? extends Genotype> performMutating(State population);
+public interface MutationDesc<T extends Genotype> {
+    List<T> performMutating(State<T> population);
 }

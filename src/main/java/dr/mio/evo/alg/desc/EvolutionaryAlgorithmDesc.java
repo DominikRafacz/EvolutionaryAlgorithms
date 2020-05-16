@@ -1,6 +1,7 @@
 package dr.mio.evo.alg.desc;
 
 import dr.mio.evo.alg.EvolutionaryAlgorithm;
+import dr.mio.evo.alg.genotype.Genotype;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,15 +11,15 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class EvolutionaryAlgorithmDesc {
-    private PopulationDesc populationDesc;
+public class EvolutionaryAlgorithmDesc<T extends Genotype> {
+    private PopulationDesc<T> populationDesc;
     private TargetDesc targetDesc;
-    private CrossingDesc crossingDesc;
-    private MutationDesc mutationDesc;
+    private CrossingDesc<T> crossingDesc;
+    private MutationDesc<T> mutationDesc;
     private CriterionDesc criterionDesc;
 
-    EvolutionaryAlgorithm getAlgorithm() {
-        return new EvolutionaryAlgorithm(
+    EvolutionaryAlgorithm<T> getAlgorithm() {
+        return new EvolutionaryAlgorithm<>(
                 populationDesc,
                 targetDesc,
                 crossingDesc,
