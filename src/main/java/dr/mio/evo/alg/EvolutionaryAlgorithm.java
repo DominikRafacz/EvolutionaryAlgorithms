@@ -26,9 +26,13 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
     }
 
     public void run() {
+        // nazwy są, mam nadzieję, dość samoopisujące - wszystkie dokonują zmian w obiekcie State
+        // przechowującym stan populacji w danym momencie i delegują wykonanie metod do implementacji
+        // interfejsów opisujących poszczególne kroki
         initPopulation();
         evalFitness();
         while (!isCriterionMet()) {
+            incrementCounter();
             performCrossing();
             performMutating();
             evalFitness();
@@ -36,12 +40,17 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
         }
     }
 
+    private void incrementCounter() {
+        state.incrementCounter();
+    }
+
     private void initPopulation() {
-        state.setPopulation(populationDesc.initPopulation());
+        populationDesc.initPopulation(state);
     }
 
     private void evalFitness() {
-        state.setFitnessValue(targetDesc.evaFitness(state));
+        targetDesc.evalFitness(state);
+        state.selectBest();
     }
 
     private boolean isCriterionMet() {
@@ -49,18 +58,18 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
     }
 
     private void performCrossing() {
-        state.setPopulation(crossingDesc.performCrossing(state));
+        crossingDesc.performCrossing(state);
     }
 
     private void performMutating() {
-        state.setPopulation(mutationDesc.performMutating(state));
+        mutationDesc.performMutating(state);
     }
 
     private void reducePopulation() {
-        state.setPopulation(populationDesc.reducePopulation(state));
+        populationDesc.reducePopulation(state);
     }
 
-    private Results getResults() {
+    public Results<T> getResults() {
         return state.getBest();
     }
 

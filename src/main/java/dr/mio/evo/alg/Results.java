@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Results {
-    private Genotype best;
-    private Double value;
+public class Results<T extends Genotype> {
+    private T bestGenotype;
+    private Double value = Double.MAX_VALUE;
 }

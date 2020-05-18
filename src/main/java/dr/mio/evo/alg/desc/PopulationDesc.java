@@ -6,7 +6,7 @@ import dr.mio.evo.alg.genotype.Genotype;
 import java.util.List;
 
 public interface PopulationDesc<T extends Genotype> {
-    List<T> initPopulation();
+    void initPopulation(State<T> state);
 
-    List<T> reducePopulation(State<T> state);
+    void reducePopulation(State<T> state);
 }

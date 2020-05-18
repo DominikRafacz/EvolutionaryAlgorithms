@@ -13,12 +13,12 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class EvolutionaryAlgorithmDesc<T extends Genotype> {
     private PopulationDesc<T> populationDesc;
-    private TargetDesc targetDesc;
+    private TargetDesc<T> targetDesc;
     private CrossingDesc<T> crossingDesc;
     private MutationDesc<T> mutationDesc;
-    private CriterionDesc criterionDesc;
+    private CriterionDesc<T> criterionDesc;
 
-    EvolutionaryAlgorithm<T> getAlgorithm() {
+    public EvolutionaryAlgorithm<T> getAlgorithm() {
         return new EvolutionaryAlgorithm<>(
                 populationDesc,
                 targetDesc,

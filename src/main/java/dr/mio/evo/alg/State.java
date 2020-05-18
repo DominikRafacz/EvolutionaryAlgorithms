@@ -11,5 +11,19 @@ import java.util.List;
 public class State<T extends Genotype> {
     private List<T> population;
     private List<Double> fitnessValue;
-    private Results best;
+    private Results<T> best = new Results<>();
+    private int iteration = 0;
+
+    public void incrementCounter() {
+        iteration++;
+    }
+
+    public void selectBest() {
+        for (int i = 0; i < population.size(); i++) {
+            if (fitnessValue.get(i) < best.getValue()) {
+                best.setValue(fitnessValue.get(i));
+                best.setBestGenotype(population.get(i));
+            }
+        }
+    }
 }
