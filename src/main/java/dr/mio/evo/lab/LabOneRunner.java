@@ -23,7 +23,7 @@ public class LabOneRunner {
                 // mutacja będzie zachodziła u ok 20% osobników i będzie dotyczyła jednej współrzędnej
                 .mutationDesc(new MutationDescOnePointGaussian(0.2))
                 // wykonanych zostanie 1000 iteracji
-                .criterionDesc(new CriterionDescFixedIterations(1000))
+                .criterionDesc(new CriterionDescFixedIterations<>(1000))
                 // budujemy wzorzec algorytmu
                 .build()
                 // uzyskujemy algorytm
@@ -40,7 +40,7 @@ public class LabOneRunner {
                 .targetDesc(Targets.euclideanFunction(x -> 50 + IntStream.range(0, 5).mapToDouble(i -> x.at(i) * x.at(i) - 10 * Math.cos(2 * Math.PI * x.at(i))).sum()))
                 .crossingDesc(new CrossingDescRandomPairs())
                 .mutationDesc(new MutationDescOnePointGaussian(0.2))
-                .criterionDesc(new CriterionDescFixedIterations(1000))
+                .criterionDesc(new CriterionDescFixedIterations<>(1000))
                 .build()
                 .getAlgorithm();
         algorithm.run();
