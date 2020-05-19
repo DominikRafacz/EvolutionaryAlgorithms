@@ -1,3 +1,6 @@
+// Potwierdzam samodzielność powyższej pracy oraz niekorzystanie przeze mnie z niedozwolonych źródeł.
+// Dominik Rafacz
+
 package dr.mio.evo.lab;
 
 import dr.mio.evo.alg.desc.EvolutionaryAlgorithmDesc;
@@ -5,8 +8,8 @@ import dr.mio.evo.alg.desc.crossing.CrossingDescRandomPairs;
 import dr.mio.evo.alg.genotype.GenotypeEuclidean;
 import dr.mio.evo.alg.population.PopulationDescEuclideanSpace;
 import dr.mio.evo.alg.target.Targets;
-import dr.mio.evo.lab.criterion.CriterionDescFixedIterations;
-import dr.mio.evo.lab.mutation.MutationDescOnePointGaussian;
+import dr.mio.evo.alg.criterion.CriterionDescFixedIterations;
+import dr.mio.evo.alg.mutation.MutationDescOnePointGaussian;
 
 import java.util.stream.IntStream;
 

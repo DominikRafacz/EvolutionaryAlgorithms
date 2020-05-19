@@ -1,9 +1,11 @@
-package dr.mio.evo.lab.criterion;
+// Potwierdzam samodzielność powyższej pracy oraz niekorzystanie przeze mnie z niedozwolonych źródeł.
+// Dominik Rafacz
+
+package dr.mio.evo.alg.criterion;
 
 import dr.mio.evo.alg.State;
 import dr.mio.evo.alg.desc.CriterionDesc;
 import dr.mio.evo.alg.genotype.Genotype;
-import dr.mio.evo.alg.genotype.GenotypeEuclidean;
 import org.jetbrains.annotations.NotNull;
 
 public class CriterionDescFixedIterations<T extends Genotype> implements CriterionDesc<T> {

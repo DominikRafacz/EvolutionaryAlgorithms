@@ -1,4 +1,7 @@
-package dr.mio.evo.lab.mutation;
+// Potwierdzam samodzielność powyższej pracy oraz niekorzystanie przeze mnie z niedozwolonych źródeł.
+// Dominik Rafacz
+
+package dr.mio.evo.alg.mutation;
 
 import dr.mio.evo.alg.State;
 import dr.mio.evo.alg.desc.MutationDesc;
