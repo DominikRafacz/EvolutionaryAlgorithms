@@ -48,7 +48,7 @@ public class LabOneRunner {
                 .getAlgorithm();
         algorithm.run();
         System.out.println(algorithm.getResults().toString());
-
+        // bestGenotype=[0.035019690059640896, 1.0298196287914652, -1.0857039449239803, -0.0269322544928296, -0.02863954212613734], value=4.377650314246928
 
     }
 }
