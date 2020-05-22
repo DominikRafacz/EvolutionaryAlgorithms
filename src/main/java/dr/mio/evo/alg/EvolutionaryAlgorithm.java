@@ -12,6 +12,7 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
     private final CrossingDesc<T> crossingDesc;
     private final MatingDesc<T> matingDesc;
     private final MutationDesc<T> mutationDesc;
+    private final SelectionDesc<T> selectionDesc;
     private final CriterionDesc<T> criterionDesc;
 
     private final State<T> state;
@@ -21,12 +22,14 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
                                  MatingDesc<T> matingDesc,
                                  CrossingDesc<T> crossingDesc,
                                  MutationDesc<T> mutationDesc,
+                                 SelectionDesc<T> selectionDesc,
                                  CriterionDesc<T> criterionDesc) {
         this.populationDesc = populationDesc;
         this.targetDesc = targetDesc;
         this.mutationDesc = mutationDesc;
         this.matingDesc = matingDesc;
         this.crossingDesc = crossingDesc;
+        this.selectionDesc = selectionDesc;
         this.criterionDesc = criterionDesc;
         state = new State<>();
     }
@@ -42,7 +45,7 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
             performCrossing();
             performMutating();
             evalFitness();
-            reducePopulation();
+            performSelection();
         }
     }
 
@@ -71,8 +74,8 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
         mutationDesc.performMutating(state);
     }
 
-    private void reducePopulation() {
-        populationDesc.reducePopulation(state);
+    private void performSelection() {
+        selectionDesc.performSelection(state);
     }
 
     public Results<T> getResults() {

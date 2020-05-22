@@ -10,6 +10,4 @@ import java.util.List;
 
 public interface PopulationDesc<T extends Genotype> {
     void initPopulation(State<T> state);
-
-    void reducePopulation(State<T> state);
 }

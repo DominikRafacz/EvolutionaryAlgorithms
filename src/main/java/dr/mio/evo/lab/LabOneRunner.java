@@ -8,6 +8,7 @@ import dr.mio.evo.alg.desc.EvolutionaryAlgorithmDesc;
 import dr.mio.evo.alg.mating.MatingDescRandomPairs;
 import dr.mio.evo.alg.genotype.GenotypeEuclidean;
 import dr.mio.evo.alg.population.PopulationDescEuclideanSpace;
+import dr.mio.evo.alg.selection.SelectionDescRank;
 import dr.mio.evo.alg.target.Targets;
 import dr.mio.evo.alg.criterion.CriterionDescFixedIterations;
 import dr.mio.evo.alg.mutation.MutationDescOnePointGaussian;
@@ -34,6 +35,8 @@ public class LabOneRunner {
                 .mutationDesc(new MutationDescOnePointGaussian(0.2))
                 // wykonanych zostanie 1000 iteracji
                 .criterionDesc(new CriterionDescFixedIterations<>(1000))
+                // selekcja będzie dokonywana metodą rankingową
+                .selectionDesc(new SelectionDescRank<>())
                 // budujemy wzorzec algorytmu
                 .build()
                 // uzyskujemy algorytm
@@ -47,11 +50,12 @@ public class LabOneRunner {
         // analogicznie jak wyżej, zmienia się funkcja celu
         algorithm = EvolutionaryAlgorithmDesc.<GenotypeEuclidean>builder()
                 .populationDesc(new PopulationDescEuclideanSpace(5, 1000, -5.12, 5.12))
-                .targetDesc(Targets.euclideanFunction(x -> 50 + IntStream.range(0, 5).mapToDouble(i -> x.at(i) * x.at(i) - 10 * Math.cos(2 * Math.PI * x.at(i))).sum()))
-                .matingDesc(new MatingDescRandomPairs<>())
-                .crossingDesc(new CrossingDescStandardEuclideanFamilyModel())
-                .mutationDesc(new MutationDescOnePointGaussian(0.2))
-                .criterionDesc(new CriterionDescFixedIterations<>(1000))
+                .targetDesc    (Targets.euclideanFunction(x -> 50 + IntStream.range(0, 5).mapToDouble(i -> x.at(i) * x.at(i) - 10 * Math.cos(2 * Math.PI * x.at(i))).sum()))
+                .matingDesc    (new MatingDescRandomPairs<>())
+                .crossingDesc  (new CrossingDescStandardEuclideanFamilyModel())
+                .mutationDesc  (new MutationDescOnePointGaussian(0.2))
+                .criterionDesc (new CriterionDescFixedIterations<>(1000))
+                .selectionDesc (new SelectionDescRank<>())
                 .build()
                 .getAlgorithm();
         algorithm.run();

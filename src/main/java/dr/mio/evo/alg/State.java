@@ -12,6 +12,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 public class State<T extends Genotype> {
+    private int initialPopulationSize;
     private List<T> population;
     private List<Double> fitnessValue;
     private Results<T> best = new Results<>();

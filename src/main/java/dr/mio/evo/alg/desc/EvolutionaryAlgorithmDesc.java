@@ -20,6 +20,7 @@ public class EvolutionaryAlgorithmDesc<T extends Genotype> {
     private CrossingDesc<T> crossingDesc;
     private MatingDesc<T> matingDesc;
     private MutationDesc<T> mutationDesc;
+    private SelectionDesc<T> selectionDesc;
     private CriterionDesc<T> criterionDesc;
 
     public EvolutionaryAlgorithm<T> getAlgorithm() {
@@ -29,6 +30,7 @@ public class EvolutionaryAlgorithmDesc<T extends Genotype> {
                 matingDesc,
                 crossingDesc,
                 mutationDesc,
+                selectionDesc,
                 criterionDesc);
     }
 }
