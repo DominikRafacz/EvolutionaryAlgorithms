@@ -6,6 +6,7 @@ package dr.mio.evo.alg.population;
 import dr.mio.evo.alg.State;
 import dr.mio.evo.alg.desc.PopulationDesc;
 import dr.mio.evo.alg.genotype.GenotypeEuclidean;
+import dr.mio.evo.random.GlobalRandom;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
@@ -19,7 +20,7 @@ public class PopulationDescEuclideanSpace implements PopulationDesc<GenotypeEucl
     private final double min;
     private final double max;
 
-    private final Random random = new Random();
+    private final Random random = GlobalRandom.getRandom();
 
     public PopulationDescEuclideanSpace(int dimension, int initialPopulationSize, double min, double max) {
         this.dimension = dimension;
@@ -33,7 +34,6 @@ public class PopulationDescEuclideanSpace implements PopulationDesc<GenotypeEucl
     * */
     @Override
     public void initPopulation(State<GenotypeEuclidean> state) {
-        var random = new Random();
         var population = new ArrayList<GenotypeEuclidean>();
         for (int i = 0; i < initialPopulationSize; i++) {
             population.add(new GenotypeEuclidean(random.doubles(dimension, min, max).toArray()));

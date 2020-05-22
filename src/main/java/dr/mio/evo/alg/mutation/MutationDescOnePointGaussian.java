@@ -6,6 +6,7 @@ package dr.mio.evo.alg.mutation;
 import dr.mio.evo.alg.State;
 import dr.mio.evo.alg.desc.MutationDesc;
 import dr.mio.evo.alg.genotype.GenotypeEuclidean;
+import dr.mio.evo.random.GlobalRandom;
 import org.jetbrains.annotations.NotNull;
 
 import java.util.Random;
@@ -14,7 +15,7 @@ public class MutationDescOnePointGaussian implements MutationDesc<GenotypeEuclid
     private final double probability;
     private final double mean;
     private final double deviation;
-    private final Random random = new Random();
+    private final Random random = GlobalRandom.getRandom();
 
     public MutationDescOnePointGaussian(double probability, double mean, double deviation) {
         this.probability = probability;

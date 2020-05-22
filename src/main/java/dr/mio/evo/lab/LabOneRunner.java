@@ -10,11 +10,15 @@ import dr.mio.evo.alg.population.PopulationDescEuclideanSpace;
 import dr.mio.evo.alg.target.Targets;
 import dr.mio.evo.alg.criterion.CriterionDescFixedIterations;
 import dr.mio.evo.alg.mutation.MutationDescOnePointGaussian;
+import dr.mio.evo.random.GlobalRandom;
 
 import java.util.stream.IntStream;
 
 public class LabOneRunner {
     public static void main(String[] args) {
+        // ustawiamy seed
+        GlobalRandom.setUp(1998);
+
         // tworzymy algorytm ewolucyjny
         var algorithm = EvolutionaryAlgorithmDesc.<GenotypeEuclidean>builder()
                 // każdy osobnik z naszej populacji będzie punktem w 3-wymiarowej przestrzeni o maks./min. wartości wymiaru +-10; populacja będzie liczyć 1000 osobnikóœ
@@ -39,7 +43,7 @@ public class LabOneRunner {
 
         // analogicznie jak wyżej, zmienia się funkcja celu
         algorithm = EvolutionaryAlgorithmDesc.<GenotypeEuclidean>builder()
-                .populationDesc(new PopulationDescEuclideanSpace(5, 5000, -5.12, 5.12))
+                .populationDesc(new PopulationDescEuclideanSpace(5, 1000, -5.12, 5.12))
                 .targetDesc(Targets.euclideanFunction(x -> 50 + IntStream.range(0, 5).mapToDouble(i -> x.at(i) * x.at(i) - 10 * Math.cos(2 * Math.PI * x.at(i))).sum()))
                 .crossingDesc(new CrossingDescRandomPairs())
                 .mutationDesc(new MutationDescOnePointGaussian(0.2))
