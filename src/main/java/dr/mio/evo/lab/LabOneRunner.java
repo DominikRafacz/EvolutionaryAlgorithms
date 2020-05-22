@@ -26,7 +26,7 @@ public class LabOneRunner {
                 // każdy osobnik z naszej populacji będzie punktem w 3-wymiarowej przestrzeni o maks./min. wartości wymiaru +-10; populacja będzie liczyć 1000 osobnikóœ
                 .populationDesc(new PopulationDescEuclideanSpace(3, 1000, -10, 10))
                 // naszym celem jest minimalizacja zadanej funckji
-                .targetDesc(Targets.euclideanFunction(x -> x.at(0) * x.at(0) + x.at(1) * x.at(1) + 2 * x.at(2) * x.at(2)))
+                .targetDesc(Targets.targetFunction(x -> x.at(0) * x.at(0) + x.at(1) * x.at(1) + 2 * x.at(2) * x.at(2)))
                 // krzyżywane pary będą dobierane losowo
                 .matingDesc(new MatingDescRandomPairs<>())
                 // dwoje rodzicow - dwoje dzieci
@@ -50,7 +50,7 @@ public class LabOneRunner {
         // analogicznie jak wyżej, zmienia się funkcja celu
         algorithm = EvolutionaryAlgorithmDesc.<GenotypeEuclidean>builder()
                 .populationDesc(new PopulationDescEuclideanSpace(5, 1000, -5.12, 5.12))
-                .targetDesc    (Targets.euclideanFunction(x -> 50 + IntStream.range(0, 5).mapToDouble(i -> x.at(i) * x.at(i) - 10 * Math.cos(2 * Math.PI * x.at(i))).sum()))
+                .targetDesc    (Targets.targetFunction(x -> 50 + IntStream.range(0, 5).mapToDouble(i -> x.at(i) * x.at(i) - 10 * Math.cos(2 * Math.PI * x.at(i))).sum()))
                 .matingDesc    (new MatingDescRandomPairs<>())
                 .crossingDesc  (new CrossingDescStandardEuclideanFamilyModel())
                 .mutationDesc  (new MutationDescOnePointGaussian(0.2))
