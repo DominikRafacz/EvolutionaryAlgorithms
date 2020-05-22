@@ -18,6 +18,7 @@ public class EvolutionaryAlgorithmDesc<T extends Genotype> {
     private PopulationDesc<T> populationDesc;
     private TargetDesc<T> targetDesc;
     private CrossingDesc<T> crossingDesc;
+    private MatingDesc<T> matingDesc;
     private MutationDesc<T> mutationDesc;
     private CriterionDesc<T> criterionDesc;
 
@@ -25,6 +26,7 @@ public class EvolutionaryAlgorithmDesc<T extends Genotype> {
         return new EvolutionaryAlgorithm<>(
                 populationDesc,
                 targetDesc,
+                matingDesc,
                 crossingDesc,
                 mutationDesc,
                 criterionDesc);

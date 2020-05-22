@@ -3,8 +3,9 @@
 
 package dr.mio.evo.lab;
 
+import dr.mio.evo.alg.crossing.CrossingDescStandardEuclideanFamilyModel;
 import dr.mio.evo.alg.desc.EvolutionaryAlgorithmDesc;
-import dr.mio.evo.alg.desc.crossing.CrossingDescRandomPairs;
+import dr.mio.evo.alg.mating.MatingDescRandomPairs;
 import dr.mio.evo.alg.genotype.GenotypeEuclidean;
 import dr.mio.evo.alg.population.PopulationDescEuclideanSpace;
 import dr.mio.evo.alg.target.Targets;
@@ -26,7 +27,9 @@ public class LabOneRunner {
                 // naszym celem jest minimalizacja zadanej funckji
                 .targetDesc(Targets.euclideanFunction(x -> x.at(0) * x.at(0) + x.at(1) * x.at(1) + 2 * x.at(2) * x.at(2)))
                 // krzyżywane pary będą dobierane losowo
-                .crossingDesc(new CrossingDescRandomPairs())
+                .matingDesc(new MatingDescRandomPairs<>())
+                // dwoje rodzicow - dwoje dzieci
+                .crossingDesc(new CrossingDescStandardEuclideanFamilyModel())
                 // mutacja będzie zachodziła u ok 20% osobników i będzie dotyczyła jednej współrzędnej
                 .mutationDesc(new MutationDescOnePointGaussian(0.2))
                 // wykonanych zostanie 1000 iteracji
@@ -45,7 +48,8 @@ public class LabOneRunner {
         algorithm = EvolutionaryAlgorithmDesc.<GenotypeEuclidean>builder()
                 .populationDesc(new PopulationDescEuclideanSpace(5, 1000, -5.12, 5.12))
                 .targetDesc(Targets.euclideanFunction(x -> 50 + IntStream.range(0, 5).mapToDouble(i -> x.at(i) * x.at(i) - 10 * Math.cos(2 * Math.PI * x.at(i))).sum()))
-                .crossingDesc(new CrossingDescRandomPairs())
+                .matingDesc(new MatingDescRandomPairs<>())
+                .crossingDesc(new CrossingDescStandardEuclideanFamilyModel())
                 .mutationDesc(new MutationDescOnePointGaussian(0.2))
                 .criterionDesc(new CriterionDescFixedIterations<>(1000))
                 .build()
