@@ -15,7 +15,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EvolutionaryAlgorithmDesc<T extends Genotype> {
-    private PopulationDesc<T> populationDesc;
+    private SpaceDesc<T> spaceDesc;
+    private PopulationInitDesc<T> populationInitDesc;
     private TargetDesc<T> targetDesc;
     private CrossingDesc<T> crossingDesc;
     private MatingDesc<T> matingDesc;
@@ -25,7 +26,8 @@ public class EvolutionaryAlgorithmDesc<T extends Genotype> {
 
     public EvolutionaryAlgorithm<T> getAlgorithm() {
         return new EvolutionaryAlgorithm<>(
-                populationDesc,
+                spaceDesc,
+                populationInitDesc,
                 targetDesc,
                 matingDesc,
                 crossingDesc,

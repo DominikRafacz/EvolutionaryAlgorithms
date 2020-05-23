@@ -7,7 +7,7 @@ import dr.mio.evo.alg.desc.*;
 import dr.mio.evo.alg.genotype.Genotype;
 
 public class EvolutionaryAlgorithm<T extends Genotype> {
-    private final PopulationDesc<T> populationDesc;
+    private final PopulationInitDesc<T> populationInitDesc;
     private final TargetDesc<T> targetDesc;
     private final CrossingDesc<T> crossingDesc;
     private final MatingDesc<T> matingDesc;
@@ -17,21 +17,22 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
 
     private final State<T> state;
 
-    public EvolutionaryAlgorithm(PopulationDesc<T> populationDesc,
+    public EvolutionaryAlgorithm(SpaceDesc<T> spaceDesc,
+                                 PopulationInitDesc<T> populationInitDesc,
                                  TargetDesc<T> targetDesc,
                                  MatingDesc<T> matingDesc,
                                  CrossingDesc<T> crossingDesc,
                                  MutationDesc<T> mutationDesc,
                                  SelectionDesc<T> selectionDesc,
                                  CriterionDesc<T> criterionDesc) {
-        this.populationDesc = populationDesc;
+        this.populationInitDesc = populationInitDesc;
         this.targetDesc = targetDesc;
         this.mutationDesc = mutationDesc;
         this.matingDesc = matingDesc;
         this.crossingDesc = crossingDesc;
         this.selectionDesc = selectionDesc;
         this.criterionDesc = criterionDesc;
-        state = new State<>();
+        state = new State<>(spaceDesc);
     }
 
     public void run() {
@@ -54,7 +55,7 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
     }
 
     private void initPopulation() {
-        populationDesc.initPopulation(state);
+        populationInitDesc.initPopulation(state);
     }
 
     private void evalFitness() {

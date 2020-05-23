@@ -32,7 +32,7 @@ public class MutationDescOnePointGaussian implements MutationDesc<GenotypeEuclid
     * */
     @Override
     public void performMutating(@NotNull State<GenotypeEuclidean> state) {
-        var dimensions = state.getPopulation().get(0).getDimensions();
+        var dimensions = state.getPopulation().get(0).getSpaceDescEuclidean().getDimension();
         state.getPopulation()
                 .forEach(genotype -> {
                     if (random.nextDouble() < probability)

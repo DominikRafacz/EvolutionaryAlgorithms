@@ -4,39 +4,37 @@
 package dr.mio.evo.alg.population;
 
 import dr.mio.evo.alg.State;
-import dr.mio.evo.alg.desc.PopulationDesc;
+import dr.mio.evo.alg.desc.PopulationInitDesc;
 import dr.mio.evo.alg.genotype.GenotypeEuclidean;
+import dr.mio.evo.alg.space.SpaceDescEuclidean;
 import dr.mio.evo.random.GlobalRandom;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+import java.util.ArrayList;
+import java.util.Random;
 
-public class PopulationDescEuclideanSpace implements PopulationDesc<GenotypeEuclidean> {
+public class PopulationInitDescRandomUnifEuclidean implements PopulationInitDesc<GenotypeEuclidean> {
 
-    private final int dimension;
     private final int initialPopulationSize;
-    private final double min;
-    private final double max;
 
     private final Random random = GlobalRandom.getRandom();
 
-    public PopulationDescEuclideanSpace(int dimension, int initialPopulationSize, double min, double max) {
-        this.dimension = dimension;
+    public PopulationInitDescRandomUnifEuclidean(int initialPopulationSize) {
         this.initialPopulationSize = initialPopulationSize;
-        this.min = min;
-        this.max = max;
     }
 
     /*
     *  inicjalizujemy populację losowo z rozkładu normalnego
     * */
     @Override
-    public void initPopulation(State<GenotypeEuclidean> state) {
+    public void initPopulation(@NotNull State<GenotypeEuclidean> state) {
         var population = new ArrayList<GenotypeEuclidean>();
+        var spaceDesc = (SpaceDescEuclidean) state.getSpaceDesc();
+        var dimension = spaceDesc.getDimension();
+        var min = spaceDesc.getMin();
+        var max = spaceDesc.getMax();
         for (int i = 0; i < initialPopulationSize; i++) {
-            population.add(new GenotypeEuclidean(random.doubles(dimension, min, max).toArray()));
+            population.add(new GenotypeEuclidean(random.doubles(dimension, min, max).toArray(), spaceDesc));
         }
         state.setInitialPopulationSize(initialPopulationSize);
         state.setPopulation(population);

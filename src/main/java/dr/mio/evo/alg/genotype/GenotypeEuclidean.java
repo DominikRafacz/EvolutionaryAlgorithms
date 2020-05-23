@@ -3,6 +3,7 @@
 
 package dr.mio.evo.alg.genotype;
 
+import dr.mio.evo.alg.space.SpaceDescEuclidean;
 import lombok.Getter;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
@@ -11,14 +12,14 @@ import java.util.Arrays;
 import java.util.List;
 
 public class GenotypeEuclidean implements Genotype {
-    private double[] genome;
+    private final double[] genome;
     @Getter
-    private final int dimensions;
+    private final SpaceDescEuclidean spaceDescEuclidean;
 
     @Contract(pure = true)
-    public GenotypeEuclidean(double @NotNull [] genome) {
+    public GenotypeEuclidean(double @NotNull [] genome, SpaceDescEuclidean spaceDescEuclidean) {
         this.genome = genome;
-        this.dimensions = genome.length;
+        this.spaceDescEuclidean = spaceDescEuclidean;
     }
 
     public double at(int position) {
@@ -36,7 +37,7 @@ public class GenotypeEuclidean implements Genotype {
             offspringOne[position] = other.genome[position];
             offspringTwo[position] = this.genome[position];
         }
-        return List.of(new GenotypeEuclidean(offspringOne), new GenotypeEuclidean(offspringTwo));
+        return List.of(new GenotypeEuclidean(offspringOne, spaceDescEuclidean), new GenotypeEuclidean(offspringTwo, spaceDescEuclidean));
     }
 
     @Override

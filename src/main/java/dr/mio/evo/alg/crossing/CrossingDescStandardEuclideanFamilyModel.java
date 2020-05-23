@@ -10,6 +10,7 @@ import java.util.List;
 public class CrossingDescStandardEuclideanFamilyModel implements CrossingDesc<GenotypeEuclidean> {
     @Override
     public List<GenotypeEuclidean> cross(@NotNull List<GenotypeEuclidean> parents) {
-        return parents.get(0).crossWith(parents.get(1), new int[]{GlobalRandom.getRandom().nextInt(parents.get(0).getDimensions())});
+        var dimension = parents.get(0).getSpaceDescEuclidean().getDimension();
+        return parents.get(0).crossWith(parents.get(1), new int[]{GlobalRandom.getRandom().nextInt(dimension)});
     }
 }
