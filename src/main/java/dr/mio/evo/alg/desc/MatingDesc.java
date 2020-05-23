@@ -5,7 +5,8 @@ package dr.mio.evo.alg.desc;
 
 import dr.mio.evo.alg.State;
 import dr.mio.evo.alg.genotype.Genotype;
+import org.jetbrains.annotations.NotNull;
 
 public interface MatingDesc<T extends Genotype> {
-    void performCrossing(State<T> state, CrossingDesc<T> crossingDesc);
+    void performCrossing(@NotNull State<T> state, @NotNull CrossingDesc<T> crossingDesc);
 }
