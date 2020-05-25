@@ -1,3 +1,6 @@
+// Potwierdzam samodzielność powyższej pracy oraz niekorzystanie przeze mnie z niedozwolonych źródeł.
+// Dominik Rafacz
+
 package dr.mio.evo.alg.crossing;
 
 import dr.mio.evo.alg.desc.CrossingDesc;
