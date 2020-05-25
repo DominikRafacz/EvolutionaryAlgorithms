@@ -3,7 +3,6 @@ package dr.mio.evo.alg.selection;
 import dr.mio.evo.alg.State;
 import dr.mio.evo.alg.desc.SelectionDesc;
 import dr.mio.evo.alg.genotype.Genotype;
-import dr.mio.evo.alg.genotype.GenotypeEuclidean;
 import dr.mio.evo.random.GlobalRandom;
 import org.jetbrains.annotations.NotNull;
 
