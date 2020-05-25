@@ -8,7 +8,12 @@ import dr.mio.evo.alg.genotype.GenotypeCuttingStock;
 import dr.mio.evo.alg.util.Circle;
 import dr.mio.evo.alg.util.RectangleTemplate;
 import lombok.Data;
+import org.jetbrains.annotations.Nullable;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -19,5 +24,20 @@ public class SpaceDescCuttingStock implements SpaceDesc<GenotypeCuttingStock> {
     public SpaceDescCuttingStock(int circleRadius, List<RectangleTemplate> templates) {
         this.templates = templates;
         this.circle = new Circle(circleRadius);
+    }
+
+    public static @Nullable SpaceDescCuttingStock fromCSVFile(String path, int radius) {
+        var rectangles = new ArrayList<RectangleTemplate>();
+        try (var csvReader = new BufferedReader(new FileReader(path))) {
+            String row;
+            while ((row = csvReader.readLine()) != null) {
+                String[] data = row.split(",");
+                rectangles.add(new RectangleTemplate(Integer.parseInt(data[0]), Integer.parseInt(data[1]), Integer.parseInt(data[2])));
+            }
+            return new SpaceDescCuttingStock(radius, rectangles);
+        } catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
     }
 }

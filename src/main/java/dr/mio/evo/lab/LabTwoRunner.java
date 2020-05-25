@@ -24,11 +24,7 @@ public class LabTwoRunner {
         GlobalRandom.setUp(1998);
 
         var algorithm = EvolutionaryAlgorithmDesc.<GenotypeCuttingStock>builder()
-                .spaceDesc(new SpaceDescCuttingStock(1000, List.of(
-                        new RectangleTemplate(200, 120, 200),
-                        new RectangleTemplate(200, 160, 300),
-                        new RectangleTemplate(250, 160, 500),
-                        new RectangleTemplate(100, 120, 40))))
+                .spaceDesc(SpaceDescCuttingStock.fromCSVFile("src/main/resources/csp/r800.csv", 1000))
                 .populationInitDesc(new PopulationInitDescRandomCutting(1000))
                 .targetDesc(Targets.targetFunction(cut -> cut.getRectangles().stream().mapToInt(rect -> rect.getTemplate().getValue()).sum()))
                 .matingDesc(new MatingDescRandomPairs<>())
