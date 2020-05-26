@@ -36,13 +36,13 @@ public class LabTwoRunner {
 
         EvolutionaryAlgorithm<GenotypeCuttingStock> algorithm;
 
-        for (var size : new String[]{"800", "850", "1000", "1100", "1200"}) {
+        for (var size : new int[]{800, 850, 1000, 1100, 1200}) {
             algorithm = desc
-                    .spaceDesc(SpaceDescCuttingStock.fromCSVFile("src/main/resources/csp/r800.csv", 1000))
+                    .spaceDesc(SpaceDescCuttingStock.fromCSVFile("src/main/resources/csp/r" + size + ".csv", size))
                     .build()
                     .getAlgorithm();
 
-            algorithm.run(true);
+            algorithm.run();
             var results = algorithm.getResults();
             System.out.println("radius: " + size + "\nvalue: " + results.getValue() + "\nrectangles:\n" + results.getBestGenotype() + "\n");
         }
