@@ -57,7 +57,11 @@ public class GenotypeCuttingStock implements Genotype {
     private boolean tryAddingRectangle(@NotNull Rectangle candidateRectangle, int radius) {
         var x = candidateRectangle.getX();
         var y = candidateRectangle.getY();
-        if (x * x + y * y > radius * radius &&
+        if (
+                isInCircle(x, y, radius) &&
+                isInCircle(x + candidateRectangle.getTemplate().getWidth(), y, radius) &&
+                isInCircle(x, y + candidateRectangle.getTemplate().getHeight(), radius) &&
+                isInCircle(x + candidateRectangle.getTemplate().getWidth(), y + candidateRectangle.getTemplate().getHeight(), radius) &&
                 rectangles.stream().noneMatch(rectangle -> rectangle.intersectsWith(candidateRectangle))) {
             rectangles.add(candidateRectangle);
             return true;
@@ -103,5 +107,9 @@ public class GenotypeCuttingStock implements Genotype {
         return groups.keySet().stream()
                 .map(key -> "" + key.getWidth() + "x" + key.getHeight() + ": " + groups.get(key).size())
                 .collect(Collectors.joining("\n"));
+    }
+
+    private boolean isInCircle(double x, double y, int radius) {
+        return x * x + y * y <= radius * radius;
     }
 }

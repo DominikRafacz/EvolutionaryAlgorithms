@@ -29,13 +29,29 @@ public class LabTwoRunner {
         //ustawiamy seed
         GlobalRandom.setUp(1998);
 
+        // projektujemy algorytm
+        // rozwiązaniem jest tutaj lista prostokątów ze współrzędnymi całkowitymi, zawierającymi się w zadanym kole
         var desc = EvolutionaryAlgorithmDesc.<GenotypeCuttingStock>builder()
+                // populacja bedzie inicjalizowana losowo przez wstawianie w koła losowo prostokątów
                 .populationInitDesc(new PopulationInitDescRandomCutting(1000))
+                // funkcja celu (do minimalizacji) to minus suma wartości prostokątów
                 .targetDesc(Targets.targetFunction(cut -> -cut.getRectangles().stream().mapToInt(rect -> rect.getTemplate().getValue()).sum()))
+                // pary będą parowane losowo, każdy w jednej parze
                 .matingDesc(new MatingDescRandomPairs<>())
+                // krzyżowanie odbywa się przez wybór losowo miejsca przecięcia dwóch rodziców A i B horyzontalnie lub wertykalnie
+                // dla przeciecia wertyklanego: dziecko C otrzymuje wszystkie prostokąty zawarte na lewo od cięcia z rodzica A
+                // oraz wszystkie prostokądy zawarte na prawo od cięcia z rodzica B
+                // a dziecko D otrzymuje wszystkie prostokądy zawarte na prawo od cięcia z rodzica A oraz wszystkie
+                // prostokąty na lewo od cięcia z rodzica A
                 .crossingDesc(new CrossingDescRandomCuttingSplit())
+                // mutatcja danego prostokąta zachodzi z prawd. 0.2. Jeśli zachodzi, to
+                // z prawd. 0.05 usuwany  jest jeden prostokąt z rozwiązania, z prawd.
+                // z prawd. 0.15 próbujemy wstawić nowy prostokąt
+                // z prawd. 0.8 przesuwamy jeden prostokąt o losową wartość z rozkładu normalnego
                 .mutationDesc(new MutationDescRandomRectangleShiftingAddingOrRemoving())
+                // ewolucja będzie trwać 10000 iteracji
                 .criterionDesc(new CriterionDescFixedIterations<>(10000))
+                // selekcja rankingowa
                 .selectionDesc(new SelectionDescRank<>());
 
         EvolutionaryAlgorithm<GenotypeCuttingStock> algorithm;
@@ -52,10 +68,10 @@ public class LabTwoRunner {
         }
 
         //wyniki dla poszczególnych zadań:
-        //800: -19840.0
-        //850: -153280.0
-        //1000: -16960.0
-        //1100: -14720.0
-        //1200: -16340.0
+        //800: -9320.0
+        //850: -107720.0
+        //1000: -10300.0
+        //1100: -10740.0
+        //1200: -13580.0
     }
 }
