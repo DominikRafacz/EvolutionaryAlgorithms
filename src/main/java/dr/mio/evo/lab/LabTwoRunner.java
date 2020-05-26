@@ -17,6 +17,7 @@ import dr.mio.evo.alg.population.PopulationInitDescRandomCutting;
 import dr.mio.evo.alg.target.Targets;
 import dr.mio.evo.random.GlobalRandom;
 
+import javax.swing.*;
 import java.util.List;
 
 public class LabTwoRunner {
@@ -26,7 +27,7 @@ public class LabTwoRunner {
 
         var desc = EvolutionaryAlgorithmDesc.<GenotypeCuttingStock>builder()
                 .populationInitDesc(new PopulationInitDescRandomCutting(1000))
-                .targetDesc(Targets.targetFunction(cut -> cut.getRectangles().stream().mapToInt(rect -> rect.getTemplate().getValue()).sum()))
+                .targetDesc(Targets.targetFunction(cut -> -cut.getRectangles().stream().mapToInt(rect -> rect.getTemplate().getValue()).sum()))
                 .matingDesc(new MatingDescRandomPairs<>())
                 .crossingDesc(new CrossingDescRandomCuttingSplit())
                 .mutationDesc(new MutationDescRandomRectangleShiftingAddingOrRemoving())
@@ -41,7 +42,7 @@ public class LabTwoRunner {
                     .build()
                     .getAlgorithm();
 
-            algorithm.run();
+            algorithm.run(true);
             var results = algorithm.getResults();
             System.out.println("radius: " + size + "\nvalue: " + results.getValue() + "\nrectangles:\n" + results.getBestGenotype() + "\n");
         }

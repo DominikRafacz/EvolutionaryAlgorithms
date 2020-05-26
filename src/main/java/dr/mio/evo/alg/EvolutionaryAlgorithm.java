@@ -35,19 +35,25 @@ public class EvolutionaryAlgorithm<T extends Genotype> {
         state = new State<>(spaceDesc);
     }
 
-    public void run() {
+    public void run(boolean verbose) {
         // nazwy są, mam nadzieję, dość samoopisujące - wszystkie dokonują zmian w obiekcie State
         // przechowującym stan populacji w danym momencie i delegują wykonanie metod do implementacji
         // interfejsów opisujących poszczególne kroki
         initPopulation();
         evalFitness();
+        if (verbose) System.out.println("Best value at init: " + getResults().getValue());
         while (!isCriterionMet()) {
             incrementCounter();
             performCrossing();
             performMutating();
             evalFitness();
+            if (verbose) System.out.println("Best value after " + state.getIteration() + " iteration: " + getResults().getValue());
             performSelection();
         }
+    }
+
+    public void run() {
+        run(false);
     }
 
     private void incrementCounter() {
