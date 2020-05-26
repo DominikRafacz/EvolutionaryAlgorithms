@@ -21,7 +21,7 @@ public class Rectangle {
     public boolean intersectsWith(@NotNull Rectangle other) {
         return !(other.x                              > this.x + this.template.getWidth() ||
                  other.x + other.template.getWidth()  < this.x                            ||
-                 other.y + other.template.getHeight() > this.y                            ||
-                 other.y                              < this.y + this.template.getHeight());
+                 other.y + other.template.getHeight() < this.y                            ||
+                 other.y                              > this.y + this.template.getHeight());
     }
 }
