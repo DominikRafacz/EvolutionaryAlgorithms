@@ -3,6 +3,7 @@
 
 package dr.mio.evo.lab;
 
+import dr.mio.evo.alg.EvolutionaryAlgorithm;
 import dr.mio.evo.alg.criterion.CriterionDescFixedIterations;
 import dr.mio.evo.alg.crossing.CrossingDescRandomCuttingSplit;
 import dr.mio.evo.alg.desc.EvolutionaryAlgorithmDesc;
@@ -23,20 +24,26 @@ public class LabTwoRunner {
         //ustawiamy seed
         GlobalRandom.setUp(1998);
 
-        var algorithm = EvolutionaryAlgorithmDesc.<GenotypeCuttingStock>builder()
-                .spaceDesc(SpaceDescCuttingStock.fromCSVFile("src/main/resources/csp/r800.csv", 1000))
+        var desc = EvolutionaryAlgorithmDesc.<GenotypeCuttingStock>builder()
                 .populationInitDesc(new PopulationInitDescRandomCutting(1000))
                 .targetDesc(Targets.targetFunction(cut -> cut.getRectangles().stream().mapToInt(rect -> rect.getTemplate().getValue()).sum()))
                 .matingDesc(new MatingDescRandomPairs<>())
                 .crossingDesc(new CrossingDescRandomCuttingSplit())
                 .mutationDesc(new MutationDescRandomRectangleShiftingAddingOrRemoving())
-                .criterionDesc(new CriterionDescFixedIterations<>(100000))
-                .selectionDesc(new SelectionDescRank<>())
-                .build()
-                .getAlgorithm();
-        algorithm.run();
-        var results = algorithm.getResults();
-        System.out.println(results);
+                .criterionDesc(new CriterionDescFixedIterations<>(10000))
+                .selectionDesc(new SelectionDescRank<>());
 
+        EvolutionaryAlgorithm<GenotypeCuttingStock> algorithm;
+
+        for (var size : new String[]{"800", "850", "1000", "1100", "1200"}) {
+            algorithm = desc
+                    .spaceDesc(SpaceDescCuttingStock.fromCSVFile("src/main/resources/csp/r800.csv", 1000))
+                    .build()
+                    .getAlgorithm();
+
+            algorithm.run();
+            var results = algorithm.getResults();
+            System.out.println("radius: " + size + "\nvalue: " + results.getValue() + "\nrectangles:\n" + results.getBestGenotype() + "\n");
+        }
     }
 }

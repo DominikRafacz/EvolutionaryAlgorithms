@@ -5,6 +5,7 @@ package dr.mio.evo.alg.genotype;
 
 import dr.mio.evo.alg.space.SpaceDescCuttingStock;
 import dr.mio.evo.alg.util.Rectangle;
+import dr.mio.evo.alg.util.RectangleTemplate;
 import dr.mio.evo.random.GlobalRandom;
 import lombok.Data;
 import org.jetbrains.annotations.Contract;
@@ -12,7 +13,9 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
+import java.util.stream.Collectors;
 
 @Data
 public class GenotypeCuttingStock implements Genotype {
@@ -86,5 +89,15 @@ public class GenotypeCuttingStock implements Genotype {
             rectangles.add(rectangle);
             return false;
         }
+    }
+
+    @Override
+    public String toString() {
+        Map<RectangleTemplate, List<Rectangle>> groups = rectangles.stream()
+                .collect(Collectors.groupingBy(Rectangle::getTemplate));
+
+        return groups.keySet().stream()
+                .map(key -> "" + key.getWidth() + "x" + key.getHeight() + ": " + groups.get(key).size())
+                .collect(Collectors.joining("\n"));
     }
 }
