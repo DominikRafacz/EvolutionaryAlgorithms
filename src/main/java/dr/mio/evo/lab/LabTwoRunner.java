@@ -50,5 +50,12 @@ public class LabTwoRunner {
             var results = algorithm.getResults();
             System.out.println("radius: " + size + "\nvalue: " + results.getValue() + "\nrectangles:\n" + results.getBestGenotype() + "\n");
         }
+
+        //wyniki dla poszczególnych zadań:
+        //800: -19840.0
+        //850: -153280.0
+        //1000: -16960.0
+        //1100: -14720.0
+        //1200: -16340.0
     }
 }
