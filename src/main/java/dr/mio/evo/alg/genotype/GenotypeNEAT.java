@@ -1,16 +1,13 @@
 package dr.mio.evo.alg.genotype;
 
-import dr.mio.evo.alg.space.SpaceDescNEAT;
 import dr.mio.evo.alg.util.neat.Connection;
 import dr.mio.evo.alg.util.neat.Node;
 import dr.mio.evo.alg.util.neat.NodeTemplate;
-import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class GenotypeNEAT implements Genotype {
     private final List<Node> nodes;
@@ -27,8 +24,7 @@ public class GenotypeNEAT implements Genotype {
         var calcNodes = new ArrayList<Node>();
         var notCalcNodes = new ArrayList<Node>();
         var calcConnections = new ArrayList<Connection>();
-        var notCalcConnections = new ArrayList<Connection>();
-        Collections.copy(notCalcConnections, connections);
+        var notCalcConnections = new ArrayList<>(connections);
 
         for (var node : nodes) {
             if (node.getTemplate().getType() == NodeTemplate.NodeType.INPUT) {
@@ -48,22 +44,21 @@ public class GenotypeNEAT implements Genotype {
                 .findFirst()
                 .orElseThrow();
 
-        calc: while (true) {
-            for (var connection: notCalcConnections) {
-                if (calcNodes.contains(connection.getRequiredNode())) {
-                    calcConnections.add(connection);
-                    notCalcConnections.remove(connection);
-                }
-            }
-            for (var node: notCalcNodes) {
-                if (calcConnections.containsAll(node.getRequiredConnections())) {
-                    node.calculateValue();
-                    calcNodes.add(node);
-                    notCalcNodes.remove(node);
-                    if (node == outputNode) break calc;
-                }
-            }
-        }
+        List<Connection> connectionsToMove;
+        List<Node> nodesToMove;
+        do {
+            connectionsToMove = notCalcConnections.stream()
+                    .filter(connection -> calcNodes.contains(connection.getRequiredNode()))
+                    .collect(Collectors.toList());
+            calcConnections.addAll(connectionsToMove);
+            notCalcConnections.removeAll(connectionsToMove);
+
+            nodesToMove = notCalcNodes.stream()
+                    .filter(node -> calcConnections.containsAll(node.getRequiredConnections()))
+                    .collect(Collectors.toList());
+            calcNodes.addAll(nodesToMove);
+            notCalcNodes.removeAll(nodesToMove);
+        } while (!nodesToMove.contains(outputNode));
 
         return outputNode.getValue();
     }
