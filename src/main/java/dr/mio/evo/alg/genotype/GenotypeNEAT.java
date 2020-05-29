@@ -22,7 +22,7 @@ public class GenotypeNEAT implements Genotype {
         this.connections = connections;
     }
 
-    private double feedForward(double[] input) {
+    public double feedForward(double[] input) {
 
         var calcNodes = new ArrayList<Node>();
         var notCalcNodes = new ArrayList<Node>();
@@ -66,5 +66,13 @@ public class GenotypeNEAT implements Genotype {
         }
 
         return outputNode.getValue();
+    }
+
+    public double calculateMSE(double[] @NotNull [] X, double[] y) {
+        double sum = 0;
+        for (int i = 0; i < X.length; i++) {
+            sum += Math.pow(feedForward(X[i]) - y[i], 2);
+        }
+        return sum / X.length;
     }
 }
