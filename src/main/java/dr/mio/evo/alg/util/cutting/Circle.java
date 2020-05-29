@@ -5,7 +5,7 @@
 // Potwierdzam samodzielność powyższej pracy oraz niekorzystanie przeze mnie z niedozwolonych źródeł.
 // Dominik Rafacz
 
-package dr.mio.evo.alg.util;
+package dr.mio.evo.alg.util.cutting;
 
 import lombok.Data;
 

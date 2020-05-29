@@ -8,8 +8,8 @@
 package dr.mio.evo.alg.genotype;
 
 import dr.mio.evo.alg.space.SpaceDescCuttingStock;
-import dr.mio.evo.alg.util.Rectangle;
-import dr.mio.evo.alg.util.RectangleTemplate;
+import dr.mio.evo.alg.util.cutting.Rectangle;
+import dr.mio.evo.alg.util.cutting.RectangleTemplate;
 import dr.mio.evo.random.GlobalRandom;
 import lombok.Data;
 import org.jetbrains.annotations.Contract;

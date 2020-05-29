@@ -9,8 +9,8 @@ package dr.mio.evo.alg.space;
 
 import dr.mio.evo.alg.desc.SpaceDesc;
 import dr.mio.evo.alg.genotype.GenotypeCuttingStock;
-import dr.mio.evo.alg.util.Circle;
-import dr.mio.evo.alg.util.RectangleTemplate;
+import dr.mio.evo.alg.util.cutting.Circle;
+import dr.mio.evo.alg.util.cutting.RectangleTemplate;
 import lombok.Data;
 import org.jetbrains.annotations.Nullable;
 

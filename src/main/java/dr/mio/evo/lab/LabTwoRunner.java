@@ -13,16 +13,12 @@ import dr.mio.evo.alg.crossing.CrossingDescRandomCuttingSplit;
 import dr.mio.evo.alg.desc.EvolutionaryAlgorithmDesc;
 import dr.mio.evo.alg.mutation.MutationDescRandomRectangleShiftingAddingOrRemoving;
 import dr.mio.evo.alg.space.SpaceDescCuttingStock;
-import dr.mio.evo.alg.util.RectangleTemplate;
 import dr.mio.evo.alg.mating.MatingDescRandomPairs;
 import dr.mio.evo.alg.genotype.GenotypeCuttingStock;
 import dr.mio.evo.alg.selection.SelectionDescRank;
 import dr.mio.evo.alg.population.PopulationInitDescRandomCutting;
 import dr.mio.evo.alg.target.Targets;
 import dr.mio.evo.random.GlobalRandom;
-
-import javax.swing.*;
-import java.util.List;
 
 public class LabTwoRunner {
     public static void main(String[] args) {

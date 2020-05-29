@@ -6,7 +6,7 @@
 // Dominik Rafacz
 
 
-package dr.mio.evo.alg.util;
+package dr.mio.evo.alg.util.cutting;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
