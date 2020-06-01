@@ -19,7 +19,7 @@ public class GenotypeNEAT implements Genotype {
         this.connections = connections;
     }
 
-    public double feedForward(double[] input) {
+    public double feedForward(@NotNull List<Double> input) {
 
         var calcNodes = new ArrayList<Node>();
         var notCalcNodes = new ArrayList<Node>();
@@ -32,7 +32,7 @@ public class GenotypeNEAT implements Genotype {
                 if (id == 0)
                     node.setValue(1);
                 else
-                    node.setValue(input[node.getTemplate().getId() - 1]);
+                    node.setValue(input.get(node.getTemplate().getId() - 1));
                 calcNodes.add(node);
             } else {
                 notCalcNodes.add(node);
@@ -64,11 +64,11 @@ public class GenotypeNEAT implements Genotype {
         return outputNode.getValue();
     }
 
-    public double calculateMSE(double[] @NotNull [] X, double[] y) {
+    public double calculateMSE(@NotNull List<List<Double>> X, @NotNull List<Double> y) {
         double sum = 0;
-        for (int i = 0; i < X.length; i++) {
-            sum += Math.pow(feedForward(X[i]) - y[i], 2);
+        for (int i = 0; i < X.size(); i++) {
+            sum += Math.pow(feedForward(X.get(i)) - y.get(i), 2);
         }
-        return sum / X.length;
+        return sum / X.size();
     }
 }
