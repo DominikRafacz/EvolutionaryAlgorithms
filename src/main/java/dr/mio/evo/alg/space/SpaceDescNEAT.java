@@ -45,9 +45,21 @@ public class SpaceDescNEAT implements SpaceDesc<GenotypeNEAT> {
         else {
             var connectionTemplate = new ConnectionTemplate(connectionTemplates.size(), precedingNodeTemplate, succeedingNodeTemplate);
             connectionTemplates.add(connectionTemplate);
-            precedingNodeTemplate.getSucceedingNodes().add(succeedingNodeTemplate);
-            succeedingNodeTemplate.getPrecedingNodes().add(precedingNodeTemplate);
             return connectionTemplate;
+        }
+    }
+
+    public NodeTemplate getNodeTemplateOnConnection(@NotNull Connection connection) {
+        var outputNode = connection.getTemplate().getOutputNode();
+        var inputNode = connection.getTemplate().getInputNode();
+        var potentialTemplate = nodeTemplates.stream()
+                .filter(template -> template.getPrecedingNode() == inputNode && template.getSucceedingNode() == outputNode)
+                .findFirst();
+        if (potentialTemplate.isPresent()) return potentialTemplate.get();
+        else {
+            var nodeTemplate = new NodeTemplate(nodeTemplates.size(), inputNode, outputNode);
+            nodeTemplates.add(nodeTemplate);
+            return nodeTemplate;
         }
     }
 

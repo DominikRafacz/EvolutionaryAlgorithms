@@ -11,29 +11,27 @@ import java.util.List;
 public class NodeTemplate {
     private final int id;
     private final NodeType type;
-    private final List<NodeTemplate> precedingNodes = new ArrayList<>();
-    private final List<NodeTemplate> succeedingNodes = new ArrayList<>();
+    private final NodeTemplate precedingNode;
+    private final NodeTemplate succeedingNode;
 
-    private NodeTemplate(int id, NodeType type) {
+    private NodeTemplate(int id, NodeType type, NodeTemplate preceding, NodeTemplate succeeding) {
         this.id = id;
         this.type = type;
+        this.precedingNode = preceding;
+        this.succeedingNode = succeeding;
     }
 
-    public NodeTemplate(int id, @NotNull  NodeTemplate preceding, @NotNull NodeTemplate succeeding) {
-        this(id, NodeType.HIDDEN);
-        this.precedingNodes.add(preceding);
-        this.succeedingNodes.add(succeeding);
+    public NodeTemplate(int id, @NotNull NodeTemplate preceding, @NotNull NodeTemplate succeeding) {
+        this(id, NodeType.HIDDEN, preceding, succeeding);
     }
 
     @Contract("_ -> new")
     public static @NotNull NodeTemplate input(int id) {
-        return new NodeTemplate(id, NodeType.INPUT);
+        return new NodeTemplate(id, NodeType.INPUT, null, null);
     }
 
     public static @NotNull NodeTemplate output(@NotNull List<NodeTemplate> inputs) {
-        var ret = new NodeTemplate(inputs.size(), NodeType.OUTPUT);
-        ret.precedingNodes.addAll(inputs);
-        return ret;
+        return new NodeTemplate(inputs.size(), NodeType.OUTPUT, null, null);
     }
 
     public enum NodeType {
