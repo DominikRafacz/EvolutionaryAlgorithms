@@ -74,6 +74,6 @@ public class SpaceDescNEAT implements SpaceDesc<GenotypeNEAT> {
 
         nodes.get(inputSize + 1).getRequiredConnections().addAll(connections);
 
-        return new GenotypeNEAT(nodes, connections);
+        return new GenotypeNEAT(nodes, connections, this);
     }
 }

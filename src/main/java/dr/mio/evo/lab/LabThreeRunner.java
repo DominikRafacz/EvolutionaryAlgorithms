@@ -14,18 +14,16 @@ import dr.mio.evo.alg.crossing.CrossingDescNone;
 import dr.mio.evo.alg.desc.EvolutionaryAlgorithmDesc;
 import dr.mio.evo.alg.genotype.GenotypeNEAT;
 import dr.mio.evo.alg.mating.MatingDescNone;
-import dr.mio.evo.alg.mutation.MutationDescNone;
+import dr.mio.evo.alg.mutation.MutationDescNEAT;
 import dr.mio.evo.alg.population.PopulationInitDescRandomNEAT;
 import dr.mio.evo.alg.selection.SelectionDescRank;
 import dr.mio.evo.alg.space.SpaceDescNEAT;
 import dr.mio.evo.alg.target.Targets;
 import dr.mio.evo.random.GlobalRandom;
 import lombok.Data;
-import org.apache.commons.collections.ArrayStack;
 import org.jetbrains.annotations.Contract;
 import org.jetbrains.annotations.NotNull;
 
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -38,22 +36,27 @@ public class LabThreeRunner {
         //ustawiamy seed
         GlobalRandom.setUp(1998);
 
+        // wczytywanie danych z pliku CSV
         var data = TrainData.readCSV("src/main/resources/neat/easy-training.csv");
 
-
+        // ten schemat algorytmu opisuje algorytmm NEAT z wejsciem dwuwymiarowym (jak w danych easy)
         var algorithm = EvolutionaryAlgorithmDesc.<GenotypeNEAT>builder()
-                .spaceDesc(new SpaceDescNEAT(1))
+                .spaceDesc(new SpaceDescNEAT(2))
                 .populationInitDesc(new PopulationInitDescRandomNEAT(1000))
                 .targetDesc(Targets.targetFunction(net -> net.calculateMSE(data.getX(), data.getY())))
+                // parowanie i krzyzowanie nie wystepują
                 .matingDesc(new MatingDescNone<>())
                 .crossingDesc(new CrossingDescNone<>())
-                .mutationDesc(new MutationDescNone<>())
-                .criterionDesc(new CriterionDescFixedIterations<>(1))
+                // mutacja polegająca na modyfikacji wag i wstawianiu nowych neuronów
+                .mutationDesc(new MutationDescNEAT())
+                .criterionDesc(new CriterionDescFixedIterations<>(10))
                 .selectionDesc(new SelectionDescRank<>())
                 .build()
                 .getAlgorithm();
 
         algorithm.run();
+        System.out.println(algorithm.getResults());
+        // value=0.512812364091438
     }
 
     @Data

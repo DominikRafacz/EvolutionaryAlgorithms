@@ -20,6 +20,10 @@ public class Node {
                 .mapToDouble(connection -> sigmoid(connection.getRequiredNode().value * connection.getWeight())).sum();
     }
 
+    public void addRequiredConnection(Connection connection) {
+        requiredConnections.add(connection);
+    }
+
     private static double sigmoid(double x) {
         return 1 / (1 + Math.exp(-x));
     }
