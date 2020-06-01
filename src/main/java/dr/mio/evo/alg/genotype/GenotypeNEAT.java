@@ -56,6 +56,7 @@ public class GenotypeNEAT implements Genotype {
             nodesToMove = notCalcNodes.stream()
                     .filter(node -> calcConnections.containsAll(node.getRequiredConnections()))
                     .collect(Collectors.toList());
+            nodesToMove.forEach(Node::calculateValue);
             calcNodes.addAll(nodesToMove);
             notCalcNodes.removeAll(nodesToMove);
         } while (!nodesToMove.contains(outputNode));

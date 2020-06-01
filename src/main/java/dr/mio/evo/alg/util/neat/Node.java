@@ -16,6 +16,11 @@ public class Node {
     }
 
     public void calculateValue() {
-        value = requiredConnections.stream().mapToDouble(connection -> connection.getRequiredNode().value * connection.getWeight()).sum();
+        value = requiredConnections.stream()
+                .mapToDouble(connection -> sigmoid(connection.getRequiredNode().value * connection.getWeight())).sum();
+    }
+
+    private static double sigmoid(double x) {
+        return 1 / (1 + Math.exp(-x));
     }
 }
